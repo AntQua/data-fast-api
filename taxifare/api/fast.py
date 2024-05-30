@@ -18,6 +18,12 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+@app.on_event("startup")
+async def startup_event():
+    # Load the model into app.state on startup
+    app.state.model = load_model()
+
+
 # http://127.0.0.1:8000/predict?pickup_datetime=2014-07-06+19:18:00&pickup_longitude=-73.950655&pickup_latitude=40.783282&dropoff_longitude=-73.984365&dropoff_latitude=40.769802&passenger_count=2
 @app.get("/predict")
 def predict(
@@ -73,8 +79,8 @@ def predict(
     # Load the model
     model = load_model()
 
-    # Make the prediction
-    prediction = model.predict(X_pred)[0][0]
+    # Make the prediction using the model stored in app.state
+    prediction = app.state.model.predict(X_pred)[0][0]
 
     # Convert prediction to a native Python float
     prediction = float(prediction)
