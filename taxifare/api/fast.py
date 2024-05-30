@@ -82,6 +82,7 @@ def predict(
     # Make the prediction using the model stored in app.state
     prediction = app.state.model.predict(X_pred)[0][0]
 
+
     # Convert prediction to a native Python float
     prediction = float(prediction)
 

@@ -1,4 +1,22 @@
 # Feel free to use this file to list the strict minimum requirements to copy inside your docker container in production
 # You may want to remove dev requirements such as pytest, ipykernel, matplotlib etc...
 
-# YOUR CODE HERE
+wheel
+colorama
+pygeohash
+numpy==1.23.5
+pandas==1.5.3
+scipy==1.10.0
+scikit-learn==1.3.1
+google-cloud-bigquery
+google-cloud-storage
+db-dtypes
+pyarrow
+mlflow==2.1.1
+prefect==2.19.2
+python-dotenv
+psycopg2-binary
+fastapi==0.108.0
+pytz
+uvicorn
+
