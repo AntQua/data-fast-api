@@ -18,10 +18,10 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-@app.on_event("startup")
-async def startup_event():
-    # Load the model into app.state on startup
-    app.state.model = load_model()
+# @app.on_event("startup")
+# async def startup_event():
+#     # Load the model into app.state on startup
+#     app.state.model = load_model()
 
 
 # http://127.0.0.1:8000/predict?pickup_datetime=2014-07-06+19:18:00&pickup_longitude=-73.950655&pickup_latitude=40.783282&dropoff_longitude=-73.984365&dropoff_latitude=40.769802&passenger_count=2
@@ -41,21 +41,7 @@ def predict(
     """
 
 
-    # model = initialize_model((6,))
-    # compile_model(model, learning_rate=0.0005)
-    # train_model(
-    #     model,
-    #     X: np.ndarray,
-    #     y: np.ndarray,
-    #     batch_size=256,
-    #     patience=2,
-    #     validation_data=None, # overrides validation_split
-    #     validation_split=0.3
-    # )[0]
-
-    # prediction = model.predict()
-
-        # Convert pickup_datetime to the correct format and timezone
+    # Convert pickup_datetime to the correct format and timezone
     try:
         eastern = timezone('US/Eastern')
         pickup_datetime = eastern.localize(datetime.strptime(pickup_datetime, "%Y-%m-%d %H:%M:%S"))
@@ -80,7 +66,8 @@ def predict(
     model = load_model()
 
     # Make the prediction using the model stored in app.state
-    prediction = app.state.model.predict(X_pred)[0][0]
+    #prediction = app.state.model.predict(X_pred)[0][0]
+    prediction = model.predict(X_pred)[0][0]
 
 
     # Convert prediction to a native Python float
